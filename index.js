@@ -25,9 +25,16 @@ mongoose.connection.on("disconnected", () => {
 });
 
 //middlewares
+//app.use is a method in Express to register middleware to the application.
+//app.use allows to easily chain middleware functions.
 app.use(cors());
 app.use(cookieParser());
+// body parser middleware to parse the body of the request
 app.use(express.json());
+
+app.get("/test",(req,res)=>{
+  res.send('This is test')
+})
 
 app.use("/api/auth", authRoute);
 app.use("/api/users", usersRoute);
@@ -44,6 +51,7 @@ app.use((err, req, res, next) => {
     stack: err.stack,
   });
 });
+
 
 app.listen(8800, () => {
   connect();
